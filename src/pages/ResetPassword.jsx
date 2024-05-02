@@ -5,13 +5,21 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
 import { resetSchema } from "../schema/reset";
+import { UserContext } from "../App";
+import Loader from "../components/Loader";
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const [submitting, setSubmitting] = React.useState(null);
   const token = searchParams.get("token") || "";
 
+  //Check if user is already logged in
   const navigate = useNavigate();
+  const [user] = React.useContext(UserContext);
+
+  if (user) {
+    navigate("/");
+  }
 
   const formik = useFormik(
     {
@@ -94,7 +102,7 @@ const ResetPassword = () => {
             type="submit"
             className="flex justify-center items-center font-main rounded-xl w-52 h-20 bg-light font-bold font-Inter text-dark hover:bg-transparent hover:text-light hover:border-2 hover:border-light transition-all ease-in-out duration-300"
           >
-            Reset
+            {!submitting ? <h1>Reset</h1> : <Loader width={40} height={40} />}
           </button>
         </form>
         {/* Background */}

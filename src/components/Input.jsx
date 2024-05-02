@@ -1,4 +1,3 @@
-import { MdOutlineEmail } from "react-icons/md";
 import PropTypes from "prop-types";
 
 const Input = ({ name, type, label, error, Icon, onChange, disabled }) => {
@@ -23,7 +22,7 @@ const Input = ({ name, type, label, error, Icon, onChange, disabled }) => {
   );
 };
 
-Input.PropTypes = {
+Input.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,

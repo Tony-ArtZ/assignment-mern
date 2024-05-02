@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { IoCaretBackCircle } from "react-icons/io5";
+import Loader from "../components/Loader";
 
 const CreatePost = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -96,7 +97,7 @@ const CreatePost = () => {
           type="submit"
           className="flex justify-center items-center font-main rounded-xl w-52 h-20 bg-light font-bold font-Inter text-dark hover:bg-transparent hover:text-light hover:border-2 hover:border-light transition-all ease-in-out duration-300"
         >
-          Create
+          {!submitting ? <h1>Create</h1> : <Loader width={40} height={40} />}
         </button>
       </form>
       {/* Background */}

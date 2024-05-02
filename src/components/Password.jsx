@@ -38,7 +38,7 @@ const Password = ({ name, label, error, Icon, onChange, disabled }) => {
   );
 };
 
-Password.PropTypes = {
+Password.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,

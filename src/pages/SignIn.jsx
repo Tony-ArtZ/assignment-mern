@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { UserContext } from "../App";
 import Password from "../components/Password";
+import Loader from "../components/Loader";
 
 const SignIn = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -103,7 +104,7 @@ const SignIn = () => {
           type="submit"
           className="font-main rounded-xl w-52 h-20 bg-light font-bold font-Inter text-dark hover:bg-transparent hover:text-light hover:border-2 hover:border-light transition-all ease-in-out duration-300"
         >
-          Login
+          {!submitting ? <h1>Login</h1> : <Loader width={40} height={40} />}
         </button>
         <h1 className="text-light">
           New User?{" "}

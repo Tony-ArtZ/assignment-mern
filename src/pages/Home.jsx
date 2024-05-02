@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Oval } from "react-loader-spinner";
 import Post from "../components/Post";
 import { GoMoveToTop } from "react-icons/go";
+import Loader from "../components/Loader";
 
 const Home = () => {
   const [post, setPost] = React.useState([]);
@@ -16,7 +16,7 @@ const Home = () => {
       window.location.href = "/signin";
     }
     const getData = async () => {
-      const res = await fetch(`http://localhost:3000/post`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/post`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -28,12 +28,13 @@ const Home = () => {
         window.location.href = "/signin";
       }
       setPost(data);
+      setLoading(false);
     };
     getData();
-    setLoading(false);
   }, []);
 
   const getMoreData = async () => {
+    setLoading(true);
     const token = localStorage.getItem("auth-token");
     const res = await fetch(
       `${import.meta.env.VITE_SERVER_URL}/post/?page=${page}`,
@@ -47,6 +48,7 @@ const Home = () => {
     );
     setPage(page + 1);
     const data = await res.json();
+    setLoading(false);
     if (data.error) {
       window.location.href = "/signin";
     }
@@ -77,22 +79,17 @@ const Home = () => {
         </div>
       </div>
       <div className="flex pt-16 flex-col px-4 items-center overflow-x-hidden">
-        {!loading && post.length > 0 ? (
+        {loading && post.length <= 0 && (
+          <div className="grid place-items-center h-screen">
+            <Loader height={80} width={80} />
+          </div>
+        )}
+        {post.length > 0 ? (
           <InfiniteScroll
             dataLength={post.length}
             next={getMoreData}
             hasMore={hasMore}
-            loader={
-              <Oval
-                visible={true}
-                height="80"
-                width="80"
-                color="#f5d5e0"
-                ariaLabel="oval-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-              />
-            }
+            loader={<Loader height={80} width={80} />}
           >
             <div className="container">
               <div className="row">
@@ -101,24 +98,18 @@ const Home = () => {
             </div>
           </InfiniteScroll>
         ) : (
-          <div className="grid place-items-center h-screen">
-            <h1 className="text-5xl font-bold text-light">No Posts Found</h1>
-          </div>
+          <>
+            {post.length <= 0 && !loading && (
+              <div className="grid place-items-center h-screen">
+                <h1 className="text-5xl text-center font-bold text-light">
+                  No Posts Found
+                </h1>
+              </div>
+            )}
+          </>
         )}
-        {loading && (
-          <div className="grid place-items-center h-screen">
-            <Oval
-              visible={true}
-              height="80"
-              width="80"
-              color="#f5d5e0"
-              ariaLabel="oval-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>
-        )}
-        {post.length > 0 && (
+
+        {post.length > 0 && !loading && (
           <>
             <div className="grid place-items-center font-bold text-3xl text-light h-20">
               Thats all folks!

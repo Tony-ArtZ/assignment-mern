@@ -5,11 +5,20 @@ import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { forgotSchema } from "../schema/forgot";
+import { UserContext } from "../App";
+import Loader from "../components/Loader";
 
 const ForgotPassword = () => {
-  const [submitting, setSubmitting] = React.useState(null);
+  const [submitting, setSubmitting] = React.useState(false);
 
   const navigate = useNavigate();
+
+  //Check if user is already logged in
+  const [user] = React.useContext(UserContext);
+
+  if (user) {
+    navigate("/");
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -72,7 +81,11 @@ const ForgotPassword = () => {
             onChange={formik.handleChange}
           />
           <button className="flex justify-center items-center font-main rounded-xl w-52 h-20 bg-light font-bold font-Inter text-dark hover:bg-transparent hover:text-light hover:border-2 hover:border-light transition-all ease-in-out duration-300">
-            Send Email
+            {!submitting ? (
+              <h1>Send Email</h1>
+            ) : (
+              <Loader width={40} height={40} />
+            )}
           </button>
         </form>
         {/* Background */}

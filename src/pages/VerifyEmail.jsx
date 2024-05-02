@@ -1,13 +1,21 @@
 import React, { useEffect } from "react";
 import { SiTicktick } from "react-icons/si";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { RxCrossCircled } from "react-icons/rx";
 import toast from "react-hot-toast";
+import { UserContext } from "../App";
 
 const VerifyEmail = () => {
   const [searchParams] = useSearchParams();
   const [error, setError] = React.useState(null);
   const token = searchParams.get("token") || "";
+  let navigate = useNavigate();
+  //Check if user is already logged in
+  const [user] = React.useContext(UserContext);
+
+  if (user) {
+    navigate("/");
+  }
 
   useEffect(() => {
     const verifyEmail = async () => {

@@ -23,13 +23,16 @@ function App() {
     if (token) {
       const getUser = async () => {
         try {
-          const res = await fetch("http://localhost:3000/auth/get-user", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const res = await fetch(
+            `${import.meta.env.VITE_SERVER_URL}/auth/get-user`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           const data = await res.json();
           if (data.error) {
             localStorage.removeItem("auth-token");
