@@ -11,6 +11,7 @@ import ResendEmail from "./pages/ResendEmail";
 import CreatePost from "./pages/CreatePost";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import NotFound from "./pages/404";
 
 export const UserContext = React.createContext();
 
@@ -57,6 +58,7 @@ function App() {
             <Route path="/resend-email" element={<ResendEmail />}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
             <Route path="/reset-password" element={<ResetPassword />}></Route>
+            <Route path="/*" element={<NotFound />}></Route>
           </Routes>
         </BrowserRouter>
         <Toaster />
