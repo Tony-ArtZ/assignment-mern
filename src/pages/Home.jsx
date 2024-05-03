@@ -121,12 +121,11 @@ const Home = () => {
             dataLength={post.length}
             next={getMoreData}
             hasMore={hasMore}
+            className="w-full"
             loader={<Loader height={80} width={80} />}
           >
-            <div className="container">
-              <div className="row">
-                {post && post.map((item) => <Post post={item} key={item.id} />)}
-              </div>
+            <div className="w-screen px-8 max-w-[720px]">
+              {post && post.map((item) => <Post post={item} key={item.id} />)}
             </div>
           </InfiniteScroll>
         ) : (
