@@ -3,6 +3,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Post from "../components/Post";
 import { GoMoveToTop } from "react-icons/go";
 import Loader from "../components/Loader";
+import { cn, projects } from "../utils/cn";
+import { Boxes } from "../components/bg";
+import { HoverEffect } from "../components/card";
 
 const Home = () => {
   const [post, setPost] = React.useState([]);
@@ -61,7 +64,7 @@ const Home = () => {
   };
   return (
     <>
-      <div className="fixed w-full bg-light z-10">
+      <div className="fixed w-full bg-light z-50">
         <div className="container mx-auto flex justify-between px-2 sm:px-12 h-12 items-center">
           <h1 className="text-3xl font-bold text-dark">Home</h1>
           <button
@@ -78,6 +81,35 @@ const Home = () => {
           </button>
         </div>
       </div>
+      <div className="h-96 relative w-full overflow-hidden bg-dark   flex flex-col items-center justify-center rounded-lg">
+        <div className="absolute inset-0 w-full h-full bg-dark z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+        <Boxes />
+        <h1
+          className={cn(
+            "md:text-4xl text-3xl font-bold text-light relative z-20"
+          )}
+        >
+          Welcome BrainOp!
+        </h1>
+        <p className="text-center mt-2 text-mid-light relative z-20">
+          Scroll down to see posts
+        </p>
+      </div>
+      <h1 className="text-lg md:text-3xl font-bold text-light mt-8 w-full text-center">
+        Technologies Used
+      </h1>
+      <h2 className=" text-mid-light text-center mt-4">
+        ( Click to see the corresponding repositories )
+      </h2>
+      <div className="max-w-5xl w-full flex justify-center items-center mx-auto">
+        <HoverEffect items={projects} />
+      </div>
+      <h1 className="text-lg md:text-3xl font-bold text-light mt-8 w-full text-center">
+        Posts
+      </h1>
+      <h2 className=" text-mid-light text-center mt-4">
+        ( Scrolls infinitely to load more posts )
+      </h2>
       <div className="flex pt-16 flex-col px-4 items-center overflow-x-hidden">
         {loading && post.length <= 0 && (
           <div className="grid place-items-center h-screen">
