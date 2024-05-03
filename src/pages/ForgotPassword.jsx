@@ -29,13 +29,16 @@ const ForgotPassword = () => {
       try {
         if (submitting) return;
         setSubmitting(true);
-        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/forgot`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: values.email }),
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/password/forgot`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: values.email }),
+          }
+        );
 
         const data = await res.json();
         console.log(data);
